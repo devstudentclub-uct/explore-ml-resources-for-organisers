@@ -1,0 +1,171 @@
+const PROVIDERS = {
+    GOOGLE: 'google',
+    MICROSOFT: 'microsoft',
+    ALL: 'google|external'
+};
+
+angular.module('Constants').constant('ConfigInstance', {
+    AVAILABLE_LANGS: DEFAULT_CONTRIBUTION_LANGS,
+    AVAILABLE_MODULES: ['community', 'directory', 'newsletter', 'tutorial', 'user_directory'],
+    AVAILABLE_WIDGETS: DEFAULT_WIDGETS,
+    BOOKMARKED_APPS: [
+        {
+            class: 'bookmarked-apps__search',
+            link: 'https://www.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_SEARCH',
+        },
+        {
+            class: 'bookmarked-apps__email',
+            link: 'https://mail.google.com/mail',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_EMAIL',
+        },
+        {
+            class: 'bookmarked-apps__drive',
+            link: 'https://drive.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_DRIVE',
+        },
+        {
+            class: 'bookmarked-apps__docs',
+            link: 'https://docs.google.com/document',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_DOCS',
+        },
+        {
+            class: 'bookmarked-apps__sheets',
+            link: 'https://docs.google.com/spreadsheets',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_SHEETS',
+        },
+        {
+            class: 'bookmarked-apps__slides',
+            link: 'https://docs.google.com/presentation',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_SLIDES',
+        },
+        {
+            class: 'bookmarked-apps__agenda',
+            link: 'https://www.google.com/calendar',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_AGENDA',
+        },
+        {
+            class: 'bookmarked-apps__chat',
+            link: 'https://chat.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_CHAT',
+        },
+        {
+            class: 'bookmarked-apps__meet',
+            link: 'https://meet.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_MEET',
+        },
+        {
+            class: 'bookmarked-apps__google-plus',
+            link: 'https://plus.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: '',
+        },
+        {
+            class: 'bookmarked-apps__sites',
+            link: 'https://sites.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_SITES',
+        },
+        {
+            class: 'bookmarked-apps__contacts',
+            link: 'https://contacts.google.com',
+            restrictTo: PROVIDERS.ALL,
+            title: 'BOOKMARKED_APPS_CONTACTS',
+        },
+        {
+            class: 'bookmarked-apps__outlook',
+            link: 'https://outlook.office365.com/owa/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_EMAIL',
+        },
+        {
+            class: 'bookmarked-apps__calendar',
+            link: 'https://outlook.office.com/calendar/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_CALENDAR',
+        },
+        {
+            class: 'bookmarked-apps__people',
+            link: 'https://outlook.office.com/people/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_PEOPLE',
+        },
+        {
+            class: 'bookmarked-apps__teams',
+            link: 'https://aka.ms/mstfw',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_TEAMS',
+        },
+        {
+            class: 'bookmarked-apps__yammer',
+            link: 'https://www.yammer.com',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_YAMMER',
+        },
+        {
+            class: 'bookmarked-apps__delve',
+            link: 'https://eur.delve.office.com/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_DELVE',
+        },
+        {
+            class: 'bookmarked-apps__word',
+            link: 'https://www.office.com/launch/word',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_DOCS',
+        },
+        {
+            class: 'bookmarked-apps__excel',
+            link: 'https://www.office.com/launch/excel',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_EXCEL',
+        },
+        {
+            class: 'bookmarked-apps__powerpoint',
+            link: 'https://www.office.com/launch/powerpoint',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_POWERPOINT',
+        },
+        {
+            class: 'bookmarked-apps__onenote',
+            link: 'https://www.office.com/launch/onenote',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_ONENOTE',
+        },
+        {
+            class: 'bookmarked-apps__forms',
+            link: 'https://forms.office.com/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_FORMS',
+        },
+        {
+            class: 'bookmarked-apps__planner',
+            link: 'https://tasks.office.com/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_PLANNER',
+        },
+        {
+            class: 'bookmarked-apps__stream',
+            content: 'stream',
+            link: 'https://web.microsoftstream.com/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_STREAM',
+        },
+        {
+            class: 'bookmarked-apps__todo',
+            link: 'https://to-do.office.com/',
+            restrictTo: PROVIDERS.MICROSOFT,
+            title: 'BOOKMARKED_MS_APPS_TODO',
+        },
+    ],
+    FALLBACK_LANGS: DEFAULT_CONTRIBUTION_LANGS,
+});

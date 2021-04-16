@@ -1,0 +1,227 @@
+/**
+ * @env: lumsites
+ * @customerName: Community Leads Platform
+ * @customerId: 5311649981136896
+ * @account: dfranc@google.com
+ *
+ * @instanceName: Community Leads platform
+ * @instanceId: 5349972313374720
+ *
+ * @styleName: GCC
+ * @styleId: 6423033208897536
+ * @styleType: Global site
+ * @kind: custom
+ *
+ * @url: https://sites.lumapps.com/a/communityleadsplatform/home
+ */
+
+/******************************************/
+/** HEADER */
+/******************************************/
+
+.header--front .header-top {
+  height: 64px;
+}
+
+.header--front .header-top__wrapper {
+  width: 100% !important;
+  height: 64px;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.header--front .header-top__user-settings .user-settings__name,
+.header--front .header-top__post {
+  display: none;
+}
+
+.header--front .header-top__logo {
+  flex: none;
+}
+
+.header--front .header-top__actions,
+.header--front .header-top__search {
+  flex: 1;
+}
+
+.header--front .header-content {
+  padding-top: 64px;
+}
+
+/******************************************/
+/** WIDGETS */
+/******************************************/
+
+.widget-html.widget--gdg-newsletter .widget-html__content table td {
+  border: none;
+}
+
+.widget--welcome .widget-content {
+  background-repeat: no-repeat;
+  background-size: 358px 78px;
+}
+
+.widget--welcome .widget--welcome__wrapper {
+  max-width: 700px;
+}
+
+.widget--welcome .widget--welcome__title span {
+  font-size: 36px;
+  font-weight: 300;
+}
+
+.widget--welcome .widget--welcome__title strong {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.widget--welcome .widget--welcome__description {
+  margin-top: 24px;
+}
+
+.widget--welcome .widget--welcome__description span {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(0,0,0,0.54);
+}
+
+.widget--welcome .widget--welcome__description img {
+  display: inline-block;
+  height: 6px;
+  margin-left: 12px !important;
+}
+
+.widget--welcome__button {
+  display: inline-block;
+  height: 50px;
+  margin-top: 32px;
+  padding: 0 16px;
+  border-radius: 2px;
+  background-color: #4688F1;
+  font-weight: 500;
+  color: #fff !important;
+  line-height: 50px;
+  text-transform: uppercase;
+}
+
+/******************************************/
+/** FOOTER */
+/******************************************/
+
+.footer {
+    margin-top: 24px;
+    padding: 48px 24px;
+    background-color: #414141;
+}
+
+.footer__wrapper {
+    display: flex;
+}
+@media screen and (max-width : 480px) {
+  .footer__wrapper {
+    flex-wrap: wrap;
+  }
+}
+.footer__column {
+    width: 33.333%;
+    padding: 0 48px 0 24px;
+    border-right: 1px solid rgba(255,255,255, 0.12);
+}
+
+@media screen and (max-width : 480px) {
+  .footer__wrapper {
+    flex-wrap: wrap;
+  }
+
+  .footer__column {
+      width: 100%;
+      padding: 0 48px 0 24px;
+      border-right: 0;
+  }
+
+  .footer__column .footer__subheading .powered{
+  text-align: left;
+  margin-top: 24px;
+  }
+}
+
+.footer__column:last-child {
+    border-right: none;
+}
+
+.footer__title {
+    display: block;
+    color: #fff;
+}
+
+.footer__subheading {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255, 0.54);
+}
+
+.footer__icons {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.footer__icons a {
+    margin-right: 8px;
+    font-size: 22px;
+}
+
+.footer__icons i {
+    color: rgba(255,255,255, 0.54);
+}
+
+/******************************************/
+/** FIX */
+/******************************************/
+
+.widget-header {
+  pointer-events: none;
+}
+
+.widget-slideshow__block .community-block {
+  width: 100%;
+}
+
+.component-cell__components {
+  flex: 1 0 auto !important;
+}
+
+.component-cell--is-sticky {
+  bottom: -12px !important;
+}
+
+.header-top .search-engine {
+  width: 350px;
+}
+
+
+/* Remove password editing */
+div[ng-if="::vm.User.isPasswordEditable()"] {
+    display: none;
+}
+
+/* Remove Google Plus Bookmark */
+
+.bookmarked-apps__google-plus{
+display: none;
+}
+
+/* Resize Community Thumbnails */
+
+.community-block__thumbnail{
+background-size: contain;
+}
+
+
+/* User Profile Fix Email Button */
+.user-directory-details-v2-contact__email a{
+  margin-right: 40px;
+  display: none; /* hiden by default*/
+}
+

@@ -1,0 +1,213 @@
+/**
+ * @env: lumsites
+ * @customerName: Google - GDG
+ * @customerId: 5311649981136896
+ * @account: dfranc@google.com
+ *
+ * @instanceName: Community Leads platform
+ * @instanceId: 5349972313374720
+ *
+ * @url: https://sites.lumapps.com/a/communityleadsplatform/home
+ */
+
+(function IIFE() {
+    'use strict';
+
+    /////////////////////////////
+
+    function instanceScriptConfig($translateProvider) {
+		$translateProvider.translations('en', {
+            COMMUNITY_NEW_POST_TAG_REQUIRED: 'You must select a category',
+            CONTENT_FILTER_INTEREST_FOLLOW: 'Follow',
+			CONTENT_FILTER_INTEREST_FOLLOWED: 'Following'
+        });
+
+        $translateProvider.translations('fr', {
+            COMMUNITY_NEW_POST_TAG_REQUIRED: 'Vous devez sélectionner une catégorie',
+            CONTENT_FILTER_INTEREST_FOLLOW: 'Suivre',
+			CONTENT_FILTER_INTEREST_FOLLOWED: 'Suivi'
+        });
+    }
+
+    /////////////////////////////
+
+    function instanceScriptRun($compile, $rootScope, $stateParams, $templateCache, $timeout, Community, ConfigInstance, ConfigTheme, LxNotificationService, Post, Translation, User, Utils, Widget) {
+        ConfigTheme.HEADER_FRONT_OFFSET = 64;
+
+        /**
+         * Check if a tag has been set if the community required it.
+         */
+        Post.checkTag = function(cnp) {
+            var communitiesWithRequiredTag = ['6291620202283008'];
+        	if(angular.isDefined(cnp.community)
+               && communitiesWithRequiredTag.indexOf(cnp.community.id) !== -1
+               && !angular.isDefinedAndFilled(cnp.newPost.tags)) {
+                LxNotificationService.error(Translation.translate('COMMUNITY_NEW_POST_TAG_REQUIRED'));
+                cnp.is.saving = false;
+
+                return;
+            } else {
+                cnp.submitPost();
+            }
+        }
+
+        User.isGoogler = function(user) {
+            var googlersFeedId = '5282433078919168';
+            if (angular.isDefinedAndFilled(user) && angular.isDefinedAndFilled(user.subscriptions)) {
+            	if (_.map(user.subscriptions, 'feed').indexOf(googlersFeedId) !== -1) {
+            		return true;
+            	}
+            }
+            return false;
+        }
+
+        Community.addDefaultPostType = function(vm) {
+            vm.postTypesConfig = _.pick(Community.availablePostTypes, Community.getCurrent().postTypes);
+            return vm.postTypesConfig;
+        }
+
+        $timeout(function() {
+            var tpl = $templateCache.get(FRONT_MODULES_PATH + 'communities/views/partials/community-new-post-detail-footer.html');
+
+            if (tpl) {
+                tpl = tpl.replace('cnp.submitPost()', 'cnp.Post.checkTag(cnp)');
+                $templateCache.put(FRONT_MODULES_PATH + 'communities/views/partials/community-new-post-detail-footer.html', tpl);
+            }
+
+            tpl = $templateCache.get(FRONT_MODULES_PATH + 'user/views/user-block.html');
+
+            if (tpl) {
+                var value = '<div ng-if="vm.User.isGoogler(vm.user)" style="position: absolute; bottom: -3px; right: -3px; height: 16px; width: 16px; border-radius: 50%; background-color: #FFF;">';
+                value += '<img style="width: 12px; position: absolute; left: 2px; top: 2px;" src="https://live.lumappsusercontent.com/serve/AMIfv94KuJLsDKPCURnxnGlnYtlclh7V1G0XeNFSMb0rcRABYaGclvpWd9OH3kAqR5OenKQAqW9NplbzXsi5PcoIhwyzWrD15_cNXwg-vZGKjddo-cJAn18yBrH_08gxmzzQUa48UdB5_ohPQiXJXMxxjg75ZOWk7w/Google__G__Logo.png=s12">'
+                value += '</div>';
+                value += '<div class="user-block__admin-badge" ng-if="vm.isAdmin">';
+                tpl = tpl.replace('<div class="user-block__admin-badge" ng-if="vm.isAdmin">', value);
+                $templateCache.put(FRONT_MODULES_PATH + 'user/views/user-block.html', tpl);
+            }
+
+            /**tpl = $templateCache.get(FRONT_MODULES_PATH + 'communities/views/community-block.html');
+
+            if (tpl) {
+                var value = '<div class="community-block__follow" ng-if="vm.fieldsToDisplay.follow && vm.hasSocialFeature && !vm.showRequestButton && [\'4640407853465600\', \'6036585849552896\'].indexOf(vm.community.id) === -1">';
+                tpl = tpl.replace('<div class="community-block__follow" ng-if="vm.fieldsToDisplay.follow && vm.hasSocialFeature && !vm.showRequestButton">', value);
+                $templateCache.put(FRONT_MODULES_PATH + 'communities/views/community-block.html', tpl);
+            }**/
+        }, 0);
+
+        var tpl = $templateCache.get(COMMON_MODULES_PATH + 'layout/modules/header/modules/user-settings/views/user-settings.html');
+
+        if (tpl) {
+            var value = '<button class="media-picker-header__upload btn btn--m btn--blue btn--raised"';
+            value += 'ng-if="!vm.User.isConnected()" title="{{ ::\'LOGIN_CLASSIC_SIGN_IN\' | trans }}">';
+            value += '<span>';
+            value += '<a ng-href="{{ vm.getLoginUrl() }}" style="color: #FFF; text-decoration: none;">'
+            value += '{{ ::\'LOGIN_CLASSIC_SIGN_IN\' | trans }}';
+            value += '</a>';
+            value += '</span>';
+            value += '</button>';
+            value += '<div ng-if="false"';
+            tpl = tpl.replace('<div ng-if="!vm.User.isConnected()"', value);
+            $templateCache.put(COMMON_MODULES_PATH + 'layout/modules/header/modules/user-settings/views/user-settings.html', tpl);
+        }
+
+        tpl = $templateCache.get(FRONT_MODULES_PATH + 'communities/views/community.html');
+
+        if (tpl) {
+            tpl = tpl.replace('lx-direction="up"', 'lx-direction="up" lx-trigger-on-click="true"');
+            tpl = tpl.replace('lx-tooltip="{{ ::\'COMMUNITY_POST_TYPE_\' + vm.defaultPostType.value | trans }}"', '');
+            tpl = tpl.replace('lx-tooltip-position="left"', '');
+            tpl = tpl.replace('ng-click="vm.addNewPost(vm.defaultPostType.value, true)"', '');
+            tpl = tpl.replace('<i class="mdi mdi-{{ ::vm.defaultPostType.icon }}"></i>', '<i class="mdi mdi-close"></i>');
+            tpl = tpl.replace('(key, type) in vm.postTypesConfig track by $index', '(key, type) in vm.Community.addDefaultPostType(vm) track by $index');
+            $templateCache.put(FRONT_MODULES_PATH + 'communities/views/community.html', tpl);
+        }
+    }
+
+    /////////////////////////////
+
+    angular.module(APPLICATION_NAME).config(instanceScriptConfig).run(instanceScriptRun);
+})();
+
+
+function setCookie(cname, cvalue, exdays) {
+        var date = new Date();
+        date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = 'expires=' + date.toUTCString();
+        document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+    }
+
+function getCookie(cname) {
+    cname += '=';
+    var cookieValues = document.cookie.split(';');
+    for (var i = 0; i < cookieValues.length; i++) {
+        var cookieValue = cookieValues[i];
+        while (cookieValue.charAt(0) === ' ') {
+            cookieValue = cookieValue.substring(1);
+        }
+
+        if (cookieValue.indexOf(cname) === 0) {
+            return cookieValue.substring(cname.length, cookieValue.length);
+        }
+    }
+
+    return '';
+}
+
+function showAlert(id, title, text) {
+	if (getCookie(id)) {
+        return;
+    }
+    setCookie(id, 'true', 1);
+    materialAlert(title, text);
+}
+
+
+materialCallback = null;
+function materialAlert( title, text, callback ){
+	document.getElementById('materialModalTitle').innerHTML = title;
+	document.getElementById('materialModalText').innerHTML = text;
+	document.getElementById('materialModalButtonCANCEL').style.display = 'none';
+	document.getElementById('materialModal').className = 'show';
+	materialCallback = callback;
+}
+
+function closeMaterialAlert(e, result){
+	e.stopPropagation();
+	document.getElementById('materialModal').className = 'hide';
+	if(typeof materialCallback == 'function') materialCallback(result);
+}
+window.addEventListener('load', function(){
+	var materialModal = document.createElement('div');
+		materialModal.id = 'materialModal';
+		materialModal.className = 'hide';
+		materialModal.setAttribute('onclick', 'closeMaterialAlert(event, false);');
+	var materialModalCentered = document.createElement('div');
+		materialModalCentered.id = 'materialModalCentered'
+	var materialModalContent = document.createElement('div');
+		materialModalContent.id = 'materialModalContent'
+		materialModalContent.setAttribute('onclick', 'event.stopPropagation();');
+	var materialModalTitle = document.createElement('div');
+		materialModalTitle.id = 'materialModalTitle'
+	var materialModalText = document.createElement('div');
+		materialModalText.id = 'materialModalText'
+	var materialModalButtons = document.createElement('div');
+		materialModalButtons.id = 'materialModalButtons'
+	var materialModalButtonOK = document.createElement('div');
+		materialModalButtonOK.id = 'materialModalButtonOK'
+		materialModalButtonOK.className = 'materialModalButton'
+		materialModalButtonOK.setAttribute('onclick', 'closeMaterialAlert(event, true);');
+		materialModalButtonOK.innerHTML = 'OK'
+	var materialModalButtonCANCEL = document.createElement('div');
+		materialModalButtonCANCEL.id = 'materialModalButtonCANCEL'
+		materialModalButtonCANCEL.className = 'materialModalButton'
+		materialModalButtonCANCEL.setAttribute('onclick', 'closeMaterialAlert(event, false);');
+		materialModalButtonCANCEL.innerHTML = 'CANCEL'
+	materialModalButtons.appendChild(materialModalButtonOK);
+	materialModalButtons.appendChild(materialModalButtonCANCEL);
+	materialModalContent.appendChild(materialModalTitle)
+	materialModalContent.appendChild(materialModalText)
+	materialModalContent.appendChild(materialModalButtons)
+	materialModalCentered.appendChild(materialModalContent)
+	materialModal.appendChild(materialModalCentered);
+	document.body.appendChild(materialModal)
+})
